@@ -9,17 +9,28 @@ var roleRemoteHarvester = {
             }
         }
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION ||
-                            structure.structureType == STRUCTURE_SPAWN ||
-                            structure.structureType == STRUCTURE_TOWER) &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          // var tmpTargets = creep.room.lookForAtArea(FIND_STRUCTURES, 22, 1, 26, 5, true);
+          // .filter(
+          //   (structure) => {
+          //     return (structure.structureType == STRUCTURE_EXTENSION ||
+          //         structure.structureType == STRUCTURE_SPAWN ||
+          //         structure.structureType == STRUCTURE_TOWER) &&
+          //         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+          //       });
+
+          
+          var targets = creep.room.find(FIND_STRUCTURES, {
+                  filter: (structure) => {
+                      return (structure.structureType == STRUCTURE_EXTENSION ||
+                          structure.structureType == STRUCTURE_SPAWN ||
+                          structure.structureType == STRUCTURE_TOWER) &&
+                          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     }
             });
             if(targets.length > 0) {
-                if(creep.transfer(targets[1], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[1], {visualizePathStyle: {stroke: '#ffffff'}});
+              target = creep.pos.findClosestByPath(targets);
+                if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }
