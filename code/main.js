@@ -4,7 +4,7 @@ var roleBuilder = require('role.builder');
 var roleRemoteHarvester = require("role.remoteHarvester");
 
 module.exports.loop = function () {
-    let workers = {builder: 3, harvester: 4, upgrader: 2, remoteHarvester: 2};
+    let workers = {builder: 5, harvester: 3, upgrader: 5, remoteHarvester: 2};
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
@@ -18,8 +18,18 @@ module.exports.loop = function () {
     if(harvesters.length < workers.harvester) {
         var newName = 'Harvester' + Game.time;
         console.log('Spawning new harvester: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
+        Game.spawns['Spawn1'].spawnCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE], newName,
             {memory: {role: 'harvester'}});
+    }
+
+    var remoteHarvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'remoteHarvester');
+    console.log('remoteHarvesters: ' + remoteHarvesters.length);
+
+    if(remoteHarvesters.length < workers.remoteHarvester) {
+        var newName = 'remoteHarvester' + Game.time;
+        console.log('Spawning new remoteHarvester: ' + newName);
+        Game.spawns['Spawn1'].spawnCreep([WORK,WORK,CARRY,MOVE], newName,
+            {memory: {role: 'remoteHarvester'}});
     }
 
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
@@ -28,7 +38,7 @@ module.exports.loop = function () {
     if(builders.length < workers.builder) {
         var newName = 'builder' + Game.time;
         console.log('Spawning new builder: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
+        Game.spawns['Spawn1'].spawnCreep([WORK,WORK,CARRY,MOVE], newName,
             {memory: {role: 'builder'}});
     }
 
@@ -38,7 +48,7 @@ module.exports.loop = function () {
     if(upgraders.length < workers.upgrader) {
         var newName = 'upgrader' + Game.time;
         console.log('Spawning new upgrader: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName,
+        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE], newName,
             {memory: {role: 'upgrader'}});
     }
 
