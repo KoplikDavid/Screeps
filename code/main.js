@@ -5,7 +5,7 @@ var roleRemoteHarvester = require("role.remoteHarvester");
 // var rolerepayer = require('role.repayer');
 
 module.exports.loop = function () {
-    let workers = {builder: 2, harvester: 3, upgrader: 3, remoteHarvester: 1};
+    let workers = {builder: 2, harvester: 2, upgrader: 3, remoteHarvester: 1};
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
