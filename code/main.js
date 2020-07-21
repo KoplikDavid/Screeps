@@ -26,7 +26,7 @@ module.exports.initMemory = function () {
 };
 
 module.exports.loop = function () {
-  let workers = {builder: 1, harvester: 4, upgrader: 5, remoteHarvester: 0};
+  let workers = {builder: 1, harvester: 3, upgrader: 1, remoteHarvester: 0};
   for (var name in Memory.creeps) {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
