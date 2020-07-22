@@ -26,7 +26,7 @@ module.exports.initMemory = function () {
 };
 
 module.exports.loop = function () {
-  let workers = {builder: 1, harvester: 3, upgrader: 1, remoteHarvester: 0};
+  let workers = {builder: 2, harvester: 2, upgrader: 2, remoteHarvester: 0};
   for (var name in Memory.creeps) {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
@@ -40,7 +40,7 @@ module.exports.loop = function () {
   if (remoteHarvesters.length < workers.remoteHarvester) {
     var newName = 'remoteHarvester' + Game.time;
     console.log('Spawning new remoteHarvester: ' + newName);
-    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName,
+    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName,
             {memory: {role: 'remoteHarvester'}});
   }
 
@@ -50,7 +50,7 @@ module.exports.loop = function () {
   if (builders.length < workers.builder) {
     var newName = 'builder' + Game.time;
     console.log('Spawning new builder: ' + newName);
-    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName,
+    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName,
             {memory: {role: 'builder'}});
   }
 
@@ -60,7 +60,7 @@ module.exports.loop = function () {
   if (upgraders.length < workers.upgrader) {
     var newName = 'upgrader' + Game.time;
     console.log('Spawning new upgrader: ' + newName);
-    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE], newName,
+    Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE, MOVE, MOVE], newName,
             {memory: {role: 'upgrader'}});
   }
 
